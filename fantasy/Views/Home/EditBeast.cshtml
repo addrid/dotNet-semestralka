@@ -1,0 +1,80 @@
+﻿@using fantasy.Models
+@using fantasy.DataObjects
+@using fantasy.Other
+@model fantasy.Models.BeastModel
+
+@{
+    ViewBag.Title = "EditBeast";
+
+    var beastName = Model.BeastName;
+    var beastBio = Model.BeastBio;
+    var beastTypeID = Model.BeastTypeID;
+
+    // založení select list typů bestií
+    BeastTypes types = new BeastTypes();
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems = types.GetList();
+
+    if (IsPost)
+    {
+        beastName = Request.Form["beastName"];
+        beastBio = Request.Form["beastBio"];
+
+    }
+
+}
+
+<h2>Edit Character</h2>
+
+
+@Html.HiddenFor(model => model.BeastID)
+
+
+<form method="post" class="form-horizontal">
+    <fieldset>
+        <legend>Beast Information</legend>
+        <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charStr">ID:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="beastID" value="@Request.Form["beastID"]" placeholder="@Model.BeastID" disabled="disabled" />
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="beastStr">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="beastName" value="@Request.Form["beastName"]" placeholder="@Model.BeastName" />
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="beastBio">Bio:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="beastBio" value="@Request.Form["beastBio"]" placeholder="@Model.BeastBio" />
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="beastTypeID">Beast Type ID:</label>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.BeastTypeID, listItems, "-- Select Status --")
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" name="buttonSubmit" value="Edit character" class="btn btn-default" />
+                    </div>
+                </p>
+            </div>
+        </div>
+    </fieldset>
+</form>
+

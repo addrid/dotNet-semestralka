@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8c90537418314862b6523b5f4037b9af" Name="Diagram1">
+        <EntityTypeShape EntityType="fantasyDbModel.BeastType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.Contact" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.Continent" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.Item" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.NPC" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.Service" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.World" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fantasyDbModel.Character" Width="1.5" PointX="9.375" PointY="4" />
+        <EntityTypeShape EntityType="fantasyDbModel.Bestiary" Width="1.5" PointX="3" PointY="7.125" />
+        <AssociationConnector Association="fantasyDbModel.FK_Bestiary_BeastType" />
+        <EntityTypeShape EntityType="fantasyDbModel.Location" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="fantasyDbModel.Town" Width="1.5" PointX="0.75" PointY="10.75" />
+        <AssociationConnector Association="fantasyDbModel.FK_Bestiary_Location" />
+        <AssociationConnector Association="fantasyDbModel.FK_Location_Town" />
+        <EntityTypeShape EntityType="fantasyDbModel.Inventory" Width="1.5" PointX="11.625" PointY="5" />
+        <AssociationConnector Association="fantasyDbModel.FK_Inventory_Char" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

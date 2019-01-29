@@ -1,0 +1,128 @@
+﻿@using fantasy.Models
+@using fantasy.DataObjects
+@using fantasy.Other
+@model fantasy.Models.CharModel
+
+@{
+    ViewBag.Title = "EditCharacter";
+
+    var charName = Model.CharName;
+    var charBio = Model.CharBio;
+    var charClass = Model.CharClass;
+    var charID = Model.CharID;
+    var charHp = Model.CharHp;
+    var charMp = Model.CharMp;
+    var charStr = Model.CharStr;
+    var charAgi = Model.CharAgi;
+    var charDurab = Model.CharDurability;
+    
+    // založení listu možných profesí postav
+    Professions prof = new Professions();
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems = prof.GetList();
+
+    // http post požadavek
+    if (IsPost)
+    {
+        charName = Request.Form["charName"];
+        charBio = Request.Form["charBio"];
+        charClass = Request.Form["charClass"];
+
+    }
+
+}
+
+<h2>Edit Character</h2>
+
+
+@Html.HiddenFor(model => model.CharID)
+
+
+<form method="post" class="form-horizontal">
+    <fieldset>
+        <legend>Character Information</legend>
+        <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charStr">ID:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="charID" value="@Request.Form["charID"]" placeholder="@Model.CharID" disabled="disabled" />
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charStr">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="charName" value="@Request.Form["charName"]" placeholder="@Model.CharName" />
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charBio">Bio:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="charBio" value="@Request.Form["charBio"]" placeholder="@Model.CharBio" />
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charClass">Class:</label>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.CharClass, listItems, "-- Select Status --")
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charClass">Level:</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(m => m.CharLevel, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charHp">HP:</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(m => m.CharHp, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charMp">MP:</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(m => m.CharMp, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charStr">Strength:</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(m => m.CharStr, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label class="control-label col-sm-2" for="charDurab">Durability:</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(m => m.CharDurability, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" name="buttonSubmit" value="Edit character" class="btn btn-default" />
+                    </div>
+                </p>
+            </div>
+        </div>
+    </fieldset>
+</form>
+

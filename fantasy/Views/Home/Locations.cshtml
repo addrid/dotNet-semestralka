@@ -1,0 +1,54 @@
+﻿@using fantasy.Models;
+@using fantasy.DataObjects;
+@model LocationModel
+
+@{
+    ViewBag.Title = "Locations";
+}
+
+<h2>Towns and Locations</h2>
+
+
+@using (Html.BeginForm("Locations", "Home", FormMethod.Post))
+{ 
+    // dropdown list a HTTP post požadavek při změně
+    <div class="form-group">
+        @Html.DropDownListFor(
+                 m => m.TownID,
+                 (List<SelectListItem>)ViewBag.Town,
+                 new
+                 {
+                     @class = "form-control input-sm",
+                     onchange = "$(this).closest('form').submit();"
+                 })
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Location ID</th>
+            <th>Location Name</th>
+            <th>Town Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (LocationsDO locations in ViewBag.Locations)
+        { 
+            <tr>
+                <td>@locations.LocationID</td>
+                <td>@locations.Name</td>
+                <td>@locations.TownName</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Show maps</h2>
+        <p>Display all available maps</p>
+        <p><a class="btn btn-default" href="~/Home/Maps">Show maps &raquo;</a></p>
+    </div>
+</div>

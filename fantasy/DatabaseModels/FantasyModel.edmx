@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="fantasyDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BeastType">
+          <Key>
+            <PropertyRef Name="idbeasttype" />
+          </Key>
+          <Property Name="idbeasttype" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="weaknesses" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Bestiary">
+          <Key>
+            <PropertyRef Name="idbeast" />
+          </Key>
+          <Property Name="idbeast" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="bio" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="hp" Type="int" Nullable="false" />
+          <Property Name="attack" Type="int" Nullable="false" />
+          <Property Name="defense" Type="int" Nullable="false" />
+          <Property Name="locationid" Type="int" Nullable="false" />
+          <Property Name="beasttypeid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="idcontact" />
+          </Key>
+          <Property Name="idcontact" Type="int" Nullable="false" />
+          <Property Name="npcid" Type="int" Nullable="false" />
+          <Property Name="visibility" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="playerid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Continent">
+          <Key>
+            <PropertyRef Name="idcontinent" />
+          </Key>
+          <Property Name="idcontinent" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="worldid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="idchar" />
+          </Key>
+          <Property Name="idchar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="playername" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="charname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="charclass" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="charlevel" Type="int" Nullable="false" />
+          <Property Name="charhp" Type="int" Nullable="false" />
+          <Property Name="charmp" Type="int" Nullable="false" />
+          <Property Name="charxp" Type="int" Nullable="false" />
+          <Property Name="charbio" Type="varchar" MaxLength="255" />
+          <Property Name="charmoney" Type="int" />
+          <Property Name="groupid" Type="int" />
+          <Property Name="strength" Type="int" />
+          <Property Name="agility" Type="int" />
+          <Property Name="chardurability" Type="int" />
+          <Property Name="intelligence" Type="int" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="idinventory" />
+          </Key>
+          <Property Name="idinventory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="maxspace" Type="int" Nullable="false" />
+          <Property Name="freespace" Type="int" Nullable="false" />
+          <Property Name="ownerid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="iditem" />
+          </Key>
+          <Property Name="iditem" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="category" Type="int" Nullable="false" />
+          <Property Name="nentechid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="idlocation" />
+          </Key>
+          <Property Name="idlocation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="townid" Type="int" />
+        </EntityType>
+        <EntityType Name="NPC">
+          <Key>
+            <PropertyRef Name="idnpc" />
+          </Key>
+          <Property Name="idnpc" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="contactid" Type="int" />
+          <Property Name="storeid" Type="int" />
+          <Property Name="locationid" Type="int" Nullable="false" />
+          <Property Name="serviceid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="idservice" />
+          </Key>
+          <Property Name="idservice" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="cost" Type="int" Nullable="false" />
+          <Property Name="effect" Type="varchar" MaxLength="1024" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Town">
+          <Key>
+            <PropertyRef Name="idtown" />
+          </Key>
+          <Property Name="idtown" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="World">
+          <Key>
+            <PropertyRef Name="idworld" />
+          </Key>
+          <Property Name="idworld" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bestiary_BeastType">
+          <End Role="BeastType" Type="Self.BeastType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bestiary" Type="Self.Bestiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeastType">
+              <PropertyRef Name="idbeasttype" />
+            </Principal>
+            <Dependent Role="Bestiary">
+              <PropertyRef Name="beasttypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bestiary_Location">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Bestiary" Type="Self.Bestiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="idlocation" />
+            </Principal>
+            <Dependent Role="Bestiary">
+              <PropertyRef Name="locationid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Char">
+          <End Role="Character" Type="Self.Character" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="idchar" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ownerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Town">
+          <End Role="Town" Type="Self.Town" Multiplicity="0..1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="idtown" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="townid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fantasyDbModelStoreContainer">
+          <EntitySet Name="BeastType" EntityType="Self.BeastType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bestiary" EntityType="Self.Bestiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Continent" EntityType="Self.Continent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Character" EntityType="Self.Character" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NPC" EntityType="Self.NPC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="World" EntityType="Self.World" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bestiary_BeastType" Association="Self.FK_Bestiary_BeastType">
+            <End Role="BeastType" EntitySet="BeastType" />
+            <End Role="Bestiary" EntitySet="Bestiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bestiary_Location" Association="Self.FK_Bestiary_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Bestiary" EntitySet="Bestiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Char" Association="Self.FK_Inventory_Char">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Town" Association="Self.FK_Location_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="fantasyDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BeastType">
+          <Key>
+            <PropertyRef Name="idbeasttype" />
+          </Key>
+          <Property Name="idbeasttype" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="weaknesses" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Bestiary" Relationship="fantasyDbModel.FK_Bestiary_BeastType" FromRole="BeastType" ToRole="Bestiary" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="idcontact" />
+          </Key>
+          <Property Name="idcontact" Type="Int32" Nullable="false" />
+          <Property Name="npcid" Type="Int32" Nullable="false" />
+          <Property Name="visibility" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="playerid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Continent">
+          <Key>
+            <PropertyRef Name="idcontinent" />
+          </Key>
+          <Property Name="idcontinent" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="worldid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="iditem" />
+          </Key>
+          <Property Name="iditem" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="category" Type="Int32" Nullable="false" />
+          <Property Name="nentechid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NPC">
+          <Key>
+            <PropertyRef Name="idnpc" />
+          </Key>
+          <Property Name="idnpc" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contactid" Type="Int32" />
+          <Property Name="storeid" Type="Int32" />
+          <Property Name="locationid" Type="Int32" Nullable="false" />
+          <Property Name="serviceid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="idservice" />
+          </Key>
+          <Property Name="idservice" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cost" Type="Int32" Nullable="false" />
+          <Property Name="effect" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="World">
+          <Key>
+            <PropertyRef Name="idworld" />
+          </Key>
+          <Property Name="idworld" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="fantasyDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BeastType" EntityType="Self.BeastType" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" />
+          <EntitySet Name="Continent" EntityType="Self.Continent" />
+          <EntitySet Name="Item" EntityType="Self.Item" />
+          <EntitySet Name="NPC" EntityType="Self.NPC" />
+          <EntitySet Name="Service" EntityType="Self.Service" />
+          <EntitySet Name="World" EntityType="Self.World" />
+          <EntitySet Name="Character" EntityType="fantasyDbModel.Character" />
+          <EntitySet Name="Bestiary" EntityType="fantasyDbModel.Bestiary" />
+          <AssociationSet Name="FK_Bestiary_BeastType" Association="fantasyDbModel.FK_Bestiary_BeastType">
+            <End Role="BeastType" EntitySet="BeastType" />
+            <End Role="Bestiary" EntitySet="Bestiary" />
+          </AssociationSet>
+          <EntitySet Name="Location" EntityType="fantasyDbModel.Location" />
+          <EntitySet Name="Town" EntityType="fantasyDbModel.Town" />
+          <AssociationSet Name="FK_Bestiary_Location" Association="fantasyDbModel.FK_Bestiary_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Bestiary" EntitySet="Bestiary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Town" Association="fantasyDbModel.FK_Location_Town">
+            <End Role="Town" EntitySet="Town" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <EntitySet Name="Inventory" EntityType="fantasyDbModel.Inventory" />
+          <AssociationSet Name="FK_Inventory_Char" Association="fantasyDbModel.FK_Inventory_Char">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="idchar" />
+          </Key>
+          <Property Name="idchar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="playername" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="charname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="charclass" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="charlevel" Type="Int32" Nullable="false" />
+          <Property Name="charhp" Type="Int32" Nullable="false" />
+          <Property Name="charmp" Type="Int32" Nullable="false" />
+          <Property Name="charxp" Type="Int32" Nullable="false" />
+          <Property Name="charbio" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="charmoney" Type="Int32" />
+          <Property Name="groupid" Type="Int32" />
+          <Property Name="strength" Type="Int32" />
+          <Property Name="agility" Type="Int32" />
+          <Property Name="chardurability" Type="Int32" />
+          <Property Name="intelligence" Type="Int32" />
+          <NavigationProperty Name="Inventory" Relationship="fantasyDbModel.FK_Inventory_Char" FromRole="Character" ToRole="Inventory" />
+        </EntityType>
+        <EntityType Name="Bestiary">
+          <Key>
+            <PropertyRef Name="idbeast" />
+          </Key>
+          <Property Name="idbeast" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bio" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="hp" Type="Int32" Nullable="false" />
+          <Property Name="attack" Type="Int32" Nullable="false" />
+          <Property Name="defense" Type="Int32" Nullable="false" />
+          <Property Name="locationid" Type="Int32" Nullable="false" />
+          <Property Name="beasttypeid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BeastType" Relationship="fantasyDbModel.FK_Bestiary_BeastType" FromRole="Bestiary" ToRole="BeastType" />
+          <NavigationProperty Name="Location" Relationship="fantasyDbModel.FK_Bestiary_Location" FromRole="Bestiary" ToRole="Location" />
+        </EntityType>
+        <Association Name="FK_Bestiary_BeastType">
+          <End Type="fantasyDbModel.BeastType" Role="BeastType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="fantasyDbModel.Bestiary" Role="Bestiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeastType">
+              <PropertyRef Name="idbeasttype" />
+            </Principal>
+            <Dependent Role="Bestiary">
+              <PropertyRef Name="beasttypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="idlocation" />
+          </Key>
+          <Property Name="idlocation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="townid" Type="Int32" />
+          <NavigationProperty Name="Bestiary" Relationship="fantasyDbModel.FK_Bestiary_Location" FromRole="Location" ToRole="Bestiary" />
+          <NavigationProperty Name="Town" Relationship="fantasyDbModel.FK_Location_Town" FromRole="Location" ToRole="Town" />
+        </EntityType>
+        <EntityType Name="Town">
+          <Key>
+            <PropertyRef Name="idtown" />
+          </Key>
+          <Property Name="idtown" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="fantasyDbModel.FK_Location_Town" FromRole="Town" ToRole="Location" />
+        </EntityType>
+        <Association Name="FK_Bestiary_Location">
+          <End Type="fantasyDbModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="fantasyDbModel.Bestiary" Role="Bestiary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="idlocation" />
+            </Principal>
+            <Dependent Role="Bestiary">
+              <PropertyRef Name="locationid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Town">
+          <End Type="fantasyDbModel.Town" Role="Town" Multiplicity="0..1" />
+          <End Type="fantasyDbModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Town">
+              <PropertyRef Name="idtown" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="townid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="idinventory" />
+          </Key>
+          <Property Name="idinventory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="maxspace" Type="Int32" Nullable="false" />
+          <Property Name="freespace" Type="Int32" Nullable="false" />
+          <Property Name="ownerid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Character" Relationship="fantasyDbModel.FK_Inventory_Char" FromRole="Inventory" ToRole="Character" />
+        </EntityType>
+        <Association Name="FK_Inventory_Char">
+          <End Type="fantasyDbModel.Character" Role="Character" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="fantasyDbModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="idchar" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ownerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="fantasyDbModelStoreContainer" CdmEntityContainer="fantasyDbEntities">
+          <EntitySetMapping Name="BeastType">
+            <EntityTypeMapping TypeName="fantasyDbModel.BeastType">
+              <MappingFragment StoreEntitySet="BeastType">
+                <ScalarProperty Name="idbeasttype" ColumnName="idbeasttype" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="weaknesses" ColumnName="weaknesses" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contact">
+            <EntityTypeMapping TypeName="fantasyDbModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="idcontact" ColumnName="idcontact" />
+                <ScalarProperty Name="npcid" ColumnName="npcid" />
+                <ScalarProperty Name="visibility" ColumnName="visibility" />
+                <ScalarProperty Name="playerid" ColumnName="playerid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Continent">
+            <EntityTypeMapping TypeName="fantasyDbModel.Continent">
+              <MappingFragment StoreEntitySet="Continent">
+                <ScalarProperty Name="idcontinent" ColumnName="idcontinent" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="worldid" ColumnName="worldid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item">
+            <EntityTypeMapping TypeName="fantasyDbModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="iditem" ColumnName="iditem" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="nentechid" ColumnName="nentechid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NPC">
+            <EntityTypeMapping TypeName="fantasyDbModel.NPC">
+              <MappingFragment StoreEntitySet="NPC">
+                <ScalarProperty Name="idnpc" ColumnName="idnpc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="contactid" ColumnName="contactid" />
+                <ScalarProperty Name="storeid" ColumnName="storeid" />
+                <ScalarProperty Name="locationid" ColumnName="locationid" />
+                <ScalarProperty Name="serviceid" ColumnName="serviceid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Service">
+            <EntityTypeMapping TypeName="fantasyDbModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="idservice" ColumnName="idservice" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="effect" ColumnName="effect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="World">
+            <EntityTypeMapping TypeName="fantasyDbModel.World">
+              <MappingFragment StoreEntitySet="World">
+                <ScalarProperty Name="idworld" ColumnName="idworld" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Character">
+            <EntityTypeMapping TypeName="fantasyDbModel.Character">
+              <MappingFragment StoreEntitySet="Character">
+                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
+                <ScalarProperty Name="chardurability" ColumnName="chardurability" />
+                <ScalarProperty Name="agility" ColumnName="agility" />
+                <ScalarProperty Name="strength" ColumnName="strength" />
+                <ScalarProperty Name="groupid" ColumnName="groupid" />
+                <ScalarProperty Name="charmoney" ColumnName="charmoney" />
+                <ScalarProperty Name="charbio" ColumnName="charbio" />
+                <ScalarProperty Name="charxp" ColumnName="charxp" />
+                <ScalarProperty Name="charmp" ColumnName="charmp" />
+                <ScalarProperty Name="charhp" ColumnName="charhp" />
+                <ScalarProperty Name="charlevel" ColumnName="charlevel" />
+                <ScalarProperty Name="charclass" ColumnName="charclass" />
+                <ScalarProperty Name="charname" ColumnName="charname" />
+                <ScalarProperty Name="playername" ColumnName="playername" />
+                <ScalarProperty Name="idchar" ColumnName="idchar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bestiary">
+            <EntityTypeMapping TypeName="fantasyDbModel.Bestiary">
+              <MappingFragment StoreEntitySet="Bestiary">
+                <ScalarProperty Name="beasttypeid" ColumnName="beasttypeid" />
+                <ScalarProperty Name="locationid" ColumnName="locationid" />
+                <ScalarProperty Name="defense" ColumnName="defense" />
+                <ScalarProperty Name="attack" ColumnName="attack" />
+                <ScalarProperty Name="hp" ColumnName="hp" />
+                <ScalarProperty Name="bio" ColumnName="bio" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idbeast" ColumnName="idbeast" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="fantasyDbModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="townid" ColumnName="townid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idlocation" ColumnName="idlocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Town">
+            <EntityTypeMapping TypeName="fantasyDbModel.Town">
+              <MappingFragment StoreEntitySet="Town">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idtown" ColumnName="idtown" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventory">
+            <EntityTypeMapping TypeName="fantasyDbModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="ownerid" ColumnName="ownerid" />
+                <ScalarProperty Name="freespace" ColumnName="freespace" />
+                <ScalarProperty Name="maxspace" ColumnName="maxspace" />
+                <ScalarProperty Name="idinventory" ColumnName="idinventory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

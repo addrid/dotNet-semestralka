@@ -1,0 +1,73 @@
+﻿@using fantasy.Models
+@model CharModel
+@using fantasy.Other
+
+@{
+    ViewBag.Title = "NewCharacter";
+
+    var charName = "";
+    var charBio = "";
+    var charClass = "";
+
+    // založení listu možných profesí postav
+    Professions prof = new Professions();
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems = prof.GetList();
+
+
+    if (IsPost)
+    {
+        charName = Request.Form["charName"];
+        charBio = Request.Form["charBio"];
+        charClass = Request.Form["charClass"];
+
+    }
+}
+
+<h2>New Character</h2>
+<form method="post" class="form-horizontal">
+    <fieldset>
+        <legend>Character Information</legend>
+        <div class="form-group">
+            <p>
+                <label class="control-label col-sm-2" for="charName">Character Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="charName" value="@Request.Form["charName"]" />
+                </div>
+            </p>
+        </div>
+        <div class="form-group">
+            <p>
+                <label class="control-label col-sm-2" for="charBio">Bio:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="charBio" value="@Request.Form["charBio"]" />
+                </div>
+            </p>
+        </div>
+        <div class="form-group">
+            <p>
+                <label class="control-label col-sm-2" for="charClass">Class:</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.CharClass, listItems, "-- Select Class --")
+                </div>
+            </p>
+        </div>
+        <div class="form-group">
+            <p>
+                <label class="control-label col-sm-2" for="charStr">Str:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="charStr" value="@Request.Form["charStr"]" />
+                </div>
+            </p>
+        </div>
+        <div class="form-group">
+
+            <p>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" name="buttonSubmit" value="Create character" class="btn btn-default" />
+                </div>
+            </p>
+        </div>
+    </fieldset>
+</form>
+

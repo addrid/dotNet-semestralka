@@ -1,0 +1,22 @@
+﻿@using fantasy.Other
+@model fantasy.Models.OtherModel
+
+@{
+    ViewBag.Title = "Other";
+    var rand = Model.RandomNum;
+}
+
+@using (Html.BeginForm("Other", "Home", FormMethod.Post))
+{
+<div class="jumbotron">
+    <h1>Throw a dice</h1>
+
+    <div class="form-group">
+        <h2>Choose how many sided dice you want to use</h2>
+        <input type="submit" name="submitButton" value="Six" class="btn btn-primary btn-lg" />
+        <input type="submit" name="submitButton" value="Twelve" class="btn btn-primary btn-lg" />
+        <p class="lead">Current random number is: <b>@rand.ToString();</b> </p>
+    </div>
+
+    </div>
+    }

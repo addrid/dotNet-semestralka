@@ -1,0 +1,54 @@
+﻿@{ 
+    ViewBag.Title = "Maps";
+
+    // proměnná cesty k obrázkům nastavená na prázdný string
+    var imagePath = "";
+    
+    // složka obrázků
+    var directory = "/Images/";
+    if (Request["photoChoice"] != null)
+    {
+        // změna cesty k obrázku podle vybrané hodnoty
+        imagePath += Request["photoChoice"];
+    }
+
+    // načte všechny obrázky ze složky Images
+    var maps = Directory.EnumerateFiles(System.AppDomain.CurrentDomain.BaseDirectory + directory);
+
+    int count = 1;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Image on the Fly</title>
+</head>
+<body>
+    <h1>Displaying an Image On the Fly</h1>
+    <form method="post" action="">
+        <div>
+            I want to see:
+            <select name="photoChoice">
+
+                @foreach (var file in maps)
+                {
+                    // pro každý z obrázků ve složce Images/ založí hodnotu pro combobox
+                    directory = "/Images/";
+                    directory = directory + "map_" + count.ToString() + ".jpg";
+                    <option value=@directory.ToString()>map_@count.ToString()</option>
+                    count++;
+                }
+
+            </select>
+            &nbsp;
+            <input type="submit" value="Submit" />
+        </div>
+        <div style="padding:10px;">
+            @if (imagePath != "")
+            {
+                // pokud uživatel již vybral nějakou hodnotu, načti obrázek
+                <img src="@imagePath" alt="Sample Map" />
+            }
+        </div>
+    </form>
+</body>
+</html>

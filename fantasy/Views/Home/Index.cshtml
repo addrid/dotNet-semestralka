@@ -1,0 +1,45 @@
+﻿@using fantasy.Models;
+@using fantasy.DataObjects;
+@using fantasy.Other
+@model IndexModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Welcome!</h1>
+    <p class="lead">This website was created as a project for <b>4IT449</b></p>
+    <p>This page consists of following sections:
+        <ul>
+            <li>
+                <b>Bestiary</b>
+                <ul>
+                    <li>Creating a new beast</li>
+                    <li>Editing an existing beast</li>
+                </ul>
+            </li>
+            <li>
+                <b>Characters (each user sees only his own characters)</b>
+                <ul>
+                    <li>Creating a new character</li>
+                    <li>Editing an existing character</li>
+                    <li>Manipulate character's inventory</li>
+                </ul>
+            </li>
+            <li>
+                <b>Locations</b>
+                <ul>
+                    <li>Exploring different towns and other outside locations</li>
+                    <li>Displaying uploaded maps</li>
+                </ul>
+            </li>
+            <li>
+                <b>Other</b>
+                    <ul>
+                        <li>6-sided and 12-sided dice simulation</li>
+                    </ul>
+            </li>
+        </ul>
+    </p>
+</div>

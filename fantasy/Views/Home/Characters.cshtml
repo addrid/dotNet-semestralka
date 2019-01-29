@@ -1,0 +1,45 @@
+﻿@using fantasy.Models;
+@using fantasy.DataObjects;
+
+@{
+    ViewBag.Title = "Characters";
+}
+
+<h2>My characters</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Character name</th>
+            <th>Character class</th>
+            <th>Character bio</th>
+            <th>Character level</th>
+            <th>Player name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (CharactersDO characters in ViewBag.Characters)
+        {
+        <tr>
+            <td>@characters.CharName</td>
+            <td>@characters.CharClass</td>
+            <td>@characters.CharBio</td>
+            <td>@characters.CharLevel</td>
+            <td>@characters.PlayerName</td>
+            <td>@Html.ActionLink("Edit", "EditCharacter", new { id = characters.CharID })</td>
+            <td>@Html.ActionLink("Inventory", "Inventory", new { id = characters.CharID })</td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Create new character</h2>
+        <p>Do not waste any time and join the frey!</p>
+        <p><a class="btn btn-default" href="~/Home/NewCharacter">Create Character &raquo;</a></p>
+    </div>
+</div>

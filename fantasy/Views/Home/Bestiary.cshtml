@@ -1,0 +1,60 @@
+﻿@using fantasy.Models;
+@using fantasy.DataObjects;
+@model BeastModel
+
+@{
+    ViewBag.Title = "Bestiary";
+}
+
+<h2>Bestiary</h2>
+
+
+@using (Html.BeginForm("Bestiary", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.DropDownListFor(
+            m => m.BeastTypeID,
+            (List<SelectListItem>)ViewBag.beastType,
+            new
+            {
+                @class = "form-control input-sm",
+                onchange = "$(this).closest('form').submit();"
+            })
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Beast ID</th>
+            <th>Beast name</th>
+            <th>Beast bio</th>
+            <th>Attack</th>
+            <th>Defense</th>
+            <th>Beast Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (BeastsDO bestiary in ViewBag.Bestiary)
+        {
+        <tr>
+            <td>@bestiary.Idbeast</td>
+            <td>@bestiary.Name</td>
+            <td>@bestiary.Bio</td>
+            <td>@bestiary.Attack</td>
+            <td>@bestiary.Defense</td>
+            <td>@bestiary.BeastTypeName</td>
+            <td>@Html.ActionLink("Edit", "EditBeast", new { id = bestiary.Idbeast})</td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Create new beast</h2>
+        <p>Create them monsters</p>
+        <p><a class="btn btn-default" href="~/Home/NewBeast">Create Beast &raquo;</a></p>
+    </div>
+</div>
